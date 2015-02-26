@@ -14,7 +14,7 @@ chrome.devtools.panels.create("Ads",
         panelWindow = panel;
         panelBody = panel.document.body; 
         tables = panel.document.getElementById('tables');
-        panel.document.getElementById("clearBtn").addEventListener("click", clearTables);
+        panel.document.getElementById("clear-btn").addEventListener("click", clearTables);
       });
 
 
@@ -26,6 +26,7 @@ chrome.devtools.panels.create("Ads",
       }
 
       function createAdTable(arr){
+        //the key value pairs come in as an array of arrays.
         var table = document.createElement('table');
         for(var i=0, l=arr.length; i<l; i++){
           var tr = document.createElement('tr');
@@ -45,6 +46,7 @@ chrome.devtools.panels.create("Ads",
       }
 
       function splitAdUrl(adUrl){
+        //the adURL becomes an array of arrays, not an object because we need to support multiple keys with the same name
         //split everything on the semi-colons then split on the equal signs
         var r = [];
         var adParams = adUrl.split(';');
@@ -54,7 +56,7 @@ chrome.devtools.panels.create("Ads",
           if(index === 0){
             //then take the first element of this split and grab the url up to its last slash
             var lastSlash = a[0].lastIndexOf('/');
-            r.push(['URL', a[0].substring(0, lastSlash)])
+            // r.push(['URL', a[0].substring(0, lastSlash)])
             //this then becomes the first of the semi-colon separated params (ie between the last slash of the url and the first equal following it)
             //this was done to allow the semi-colon separated params to support URLs
             a[0] = a[0].substring(lastSlash+1);
@@ -72,6 +74,17 @@ chrome.devtools.panels.create("Ads",
         return div;
       }
 
+      function createLink(url){
+        var linkDiv = document.createElement('div');
+        linkDiv.setAttribute('class', 'link');
+        var link = document.createElement('a');
+        link.setAttribute('target', '_blank');
+        link.setAttribute('href', url);
+        link.innerHTML = url;
+        linkDiv.appendChild(link);
+        return linkDiv;
+      }
+
 
       chrome.devtools.network.onRequestFinished.addListener(function(request) {
         if(request.request.url.indexOf('http://at.atwola.com') === 0 || request.request.url.indexOf('http://mads.at.atwola.com') === 0){
@@ -80,6 +93,7 @@ chrome.devtools.panels.create("Ads",
 
           var adTable = createAdTable(splitAdUrl(request.request.url));
           tables.appendChild(createCallNumber());
+          tables.appendChild(createLink(request.request.url));
           tables.appendChild(adTable);
 
           panelWindow.scrollTo(0,panelWindow.document.body.scrollHeight);
