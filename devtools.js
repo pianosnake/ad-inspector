@@ -41,8 +41,8 @@ chrome.devtools.panels.create("Ads",
             //split everything on the semi-colons then split on the equal signs
             var r = [];
             var adParams = adUrl.split("?")[1].split('&');
-
-            adParams.forEach(function(kv, index){
+            adParams.forEach(function(kv){
+              if(kv.indexOf("=") === -1) return;
               var a = kv.split('=');
               r.push(a);
             });
@@ -76,6 +76,7 @@ chrome.devtools.panels.create("Ads",
       }
 
       function createDetailsTable(arr){
+        if(arr.length === 0) return null;
         //the key value pairs come in as an array of arrays [[key1,value1],[key2,value2]].
         var table = document.createElement('table');
         for(var i=0, l=arr.length; i<l; i++){
