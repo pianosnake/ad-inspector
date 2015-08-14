@@ -1,4 +1,6 @@
-This Chrome extension can be used to inspect the 'Display Ad' parameters passed in ad calls by AOL owned sites.
+This Chrome extension can be used to inspect ad calls. The following ad types are supported:
+- AOL Display Ads
+- YP beacon calls
 
 ## Installation
 - Download this repo
@@ -7,9 +9,9 @@ This Chrome extension can be used to inspect the 'Display Ad' parameters passed 
 
 ## Usage
 
-Open the developer tools panel and click the new 'Ads' tab at the top. Visit your AOL site of choice and ad information will be displayed for each ad call intercepted.
+Open the developer tools panel and click the new 'Ads' tab at the top. Visit a website and ad information will be displayed for each ad call intercepted.
 
-This tool works on the following sites:
+The following sites use AOL Display Ads:
 
   <http://www.aol.com>
   
