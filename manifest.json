@@ -1,10 +1,9 @@
 {
-  "name": "Display Ad Inspector",
-  "version": "1.2",
+  "name": "Ad Inspector",
+  "version": "2.0",
   "manifest_version": 2,
   "author": "Florin Alexandrescu",
-  "description": "Show the Display Ad parameters called from the currently viewed page",
-
+  "description": "Shows ad parameters from ads on the current page",
   "devtools_page" : "devtools.html",
   "permissions": [
     "activeTab",
