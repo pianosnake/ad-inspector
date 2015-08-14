@@ -38,7 +38,6 @@ chrome.devtools.panels.create("Ads",
           },
           parseUrl: function(adUrl){
             //the adURL becomes an array of arrays, not an object because we need to support multiple keys with the same name
-            //split everything on the semi-colons then split on the equal signs
             var r = [];
             var adParams = adUrl.split("?")[1].split('&');
             adParams.forEach(function(kv){
@@ -71,6 +70,7 @@ chrome.devtools.panels.create("Ads",
 
 
       /* DOM ELEMENT MANIPULATION */
+
       function getPanelElementById(id){
         return panelWindow.document.getElementById(id);
       }
@@ -129,23 +129,20 @@ chrome.devtools.panels.create("Ads",
       function requestListener (request){
         var url = request.request.url;
         for(var adProviderName in providers){
-          if(providers.hasOwnProperty(adProviderName)){
-            if(getPanelElementById(adProviderName + "-box").checked){
-              var adProvider = providers[adProviderName];
-              if(adProvider.matchesUrl(url)){
-                callNum++;
-                console.log(request);
+          if(!providers.hasOwnProperty(adProviderName)) continue;
+          if(!getPanelElementById(adProviderName + "-box").checked) continue;
+          var adProvider = providers[adProviderName];
+          if(!adProvider.matchesUrl(url)) continue;
+          callNum++;
+          console.log(request);
 
-                var kv = adProvider.parseUrl(url)
-                var adTable = createDetailsTable(kv);
-                details.appendChild(createCallNumberDiv());
-                details.appendChild(createLinkDiv(request.request.url));
-                details.appendChild(adTable);
+          var kv = adProvider.parseUrl(url)
+          var adTable = createDetailsTable(kv);
+          details.appendChild(createCallNumberDiv());
+          details.appendChild(createLinkDiv(request.request.url));
+          details.appendChild(adTable);
 
-                panelWindow.scrollTo(0, panelWindow.document.body.scrollHeight);
-              }
-            }
-          }
+          panelWindow.scrollTo(0, panelWindow.document.body.scrollHeight);
         }
       }
 
