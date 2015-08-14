@@ -128,11 +128,10 @@ chrome.devtools.panels.create("Ads",
 
       function requestListener (request){
         var url = request.request.url;
-        for(var adProviderName in providers){
-          if(!providers.hasOwnProperty(adProviderName)) continue;
-          if(!getPanelElementById(adProviderName + "-box").checked) continue;
+        Object.keys(providers).forEach(function(adProviderName){
+          if(!getPanelElementById(adProviderName + "-box").checked) return;
           var adProvider = providers[adProviderName];
-          if(!adProvider.matchesUrl(url)) continue;
+          if(!adProvider.matchesUrl(url)) return;
           callNum++;
           console.log(request);
 
@@ -143,7 +142,7 @@ chrome.devtools.panels.create("Ads",
           details.appendChild(adTable);
 
           panelWindow.scrollTo(0, panelWindow.document.body.scrollHeight);
-        }
+        })
       }
 
     }
