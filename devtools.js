@@ -7,8 +7,22 @@ chrome.devtools.panels.create("Ads",
       var listening = false;
       var callNum = 0;
 
+      var standardQueryStringParser = function(adUrl){
+        //the adURL becomes an array of arrays, not an object because we need to support multiple keys with the same name
+        var r = [];
+        var adParams = adUrl.split("?")[1].split('&');
+        adParams.forEach(function(kv){
+          if(kv.indexOf("=") === -1) return;
+          var a = kv.split('=');
+          r.push(a);
+        });
+        return r;
+      };
+
       var providers = {
+        //checkbox ids on panel.html should match these keys, ie aol-box, yp-box ...
         aol : {
+          label: "AOL Display Ads",
           matchesUrl: function(adUrl){
             return adUrl.indexOf('http://at.atwola.com') === 0 || adUrl.indexOf('http://mads.at.atwola.com') === 0;
           },
@@ -33,20 +47,25 @@ chrome.devtools.panels.create("Ads",
           }
         },
         yp : {
+          label: "YP Ads",
           matchesUrl: function(adUrl){
             return adUrl.indexOf('ypcdn.com') > 0;
           },
-          parseUrl: function(adUrl){
-            //the adURL becomes an array of arrays, not an object because we need to support multiple keys with the same name
-            var r = [];
-            var adParams = adUrl.split("?")[1].split('&');
-            adParams.forEach(function(kv){
-              if(kv.indexOf("=") === -1) return;
-              var a = kv.split('=');
-              r.push(a);
-            });
-            return r;
-          }
+          parseUrl: standardQueryStringParser
+        },
+        yext : {
+          label: "Yext Ads",
+          matchesUrl: function(adUrl){
+            return adUrl.indexOf('yext.com') > 0;
+          },
+          parseUrl: standardQueryStringParser
+        },
+        citygrid : {
+          label: "CityGrid",
+          matchesUrl: function(adUrl){
+            return adUrl.indexOf('citigridmedia.com') > 0;
+          },
+          parseUrl: standardQueryStringParser
         }
       };
 
@@ -133,7 +152,7 @@ chrome.devtools.panels.create("Ads",
           var adProvider = providers[adProviderName];
           if(!adProvider.matchesUrl(url)) return;
           callNum++;
-          console.log(request);
+          console.log(callNum, request);
 
           var kv = adProvider.parseUrl(url)
           var adTable = createDetailsTable(kv);
