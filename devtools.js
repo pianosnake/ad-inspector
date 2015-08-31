@@ -63,7 +63,7 @@ chrome.devtools.panels.create("Ads",
         citygrid : {
           label: "CityGrid",
           matchesUrl: function(adUrl){
-            return adUrl.indexOf('citigridmedia.com') > 0;
+            return adUrl.indexOf('citygridmedia.com') > 0;
           },
           parseUrl: standardQueryStringParser
         }
