@@ -1,6 +1,8 @@
 This Chrome extension can be used to inspect ad calls. The following ad types are supported:
 - AOL Display Ads
 - YP beacon calls
+- CityGrid
+- Yext
 
 ## Installation
 - Download this repo
