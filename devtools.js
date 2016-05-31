@@ -24,7 +24,7 @@ chrome.devtools.panels.create("Ads",
         aol : {
           label: "AOL Display Ads",
           matchesUrl: function(adUrl){
-            return adUrl.indexOf('at.atwola.com') === 0 || adUrl.indexOf('mads.at.atwola.com') === 0;
+            return adUrl.indexOf('://at.atwola.com') > 0 || adUrl.indexOf('://mads.at.atwola.com') > 0;
           },
           parseUrl: function(adUrl){
             //the adURL becomes an array of arrays, not an object because we need to support multiple keys with the same name
@@ -71,7 +71,6 @@ chrome.devtools.panels.create("Ads",
 
       function startListening(){
         if(!listening){
-          console.log('listening now!');
           chrome.devtools.network.onRequestFinished.addListener(requestListener);
           listening = true;
         }
