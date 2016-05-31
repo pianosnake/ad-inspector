@@ -24,7 +24,7 @@ chrome.devtools.panels.create("Ads",
         aol : {
           label: "AOL Display Ads",
           matchesUrl: function(adUrl){
-            return adUrl.indexOf('http://at.atwola.com') === 0 || adUrl.indexOf('http://mads.at.atwola.com') === 0;
+            return adUrl.indexOf('at.atwola.com') === 0 || adUrl.indexOf('mads.at.atwola.com') === 0;
           },
           parseUrl: function(adUrl){
             //the adURL becomes an array of arrays, not an object because we need to support multiple keys with the same name
