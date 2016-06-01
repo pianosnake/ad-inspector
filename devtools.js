@@ -6,6 +6,7 @@ chrome.devtools.panels.create("Ads",
     	var runOnce = false;
       var listening = false;
       var callNum = 0;
+      var sorter = function(a,b){return a[0].localeCompare(b[0])};
 
       var standardQueryStringParser = function(adUrl){
         //the adURL becomes an array of arrays, not an object because we need to support multiple keys with the same name
@@ -16,7 +17,7 @@ chrome.devtools.panels.create("Ads",
           var a = kv.split('=');
           r.push(a);
         });
-        return r;
+        return r.sort(sorter);
       };
 
       var providers = {
@@ -43,7 +44,7 @@ chrome.devtools.panels.create("Ads",
               }
               r.push(a);
             });
-            return r;
+            return r.sort(sorter);
           }
         },
         yp : {
