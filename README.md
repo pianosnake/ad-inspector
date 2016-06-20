@@ -1,13 +1,17 @@
-This Chrome extension can be used to inspect ad calls. The following ad types are supported:
+This Chrome extension can be used to inspect certain ad calls. The following ad types are supported:
 - AOL Display Ads
 - YP beacon calls
 - CityGrid
 - Yext
 
 ## Installation
-- Download this repo
-- Open the Extensions panel in Chrome
-- Enable 'Developer mode' and click 'Load unpacked extension...' 
+This extension is now available in the [Chrome Web Store](https://chrome.google.com/webstore/detail/ad-inspector/ghelmogfoibcfahajebncoldbnipaoni).
+
+To work directly with the source files follow these steps:
+
+ - Clone this repo
+ - Open the Extensions panel in Chrome
+ - Enable 'Developer mode' and click 'Load unpacked extension...' 
 
 ## Usage
 
