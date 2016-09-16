@@ -1,4 +1,6 @@
-This Chrome extension can be used to inspect certain ad calls. The following ad types are supported:
+# Ad Inspector
+
+This Chrome extension can be used to inspect the following ad calls:
 
 - AOL Display Ads
 - YP beacon calls
